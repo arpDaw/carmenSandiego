@@ -1,46 +1,37 @@
-class Escuela{
-    constructor(nombre, localidad, responsable){
-        this.nombre = nombre;
-        this.localidad = localidad;
-        this.responsable = responsable;
-        this.profesorado = [];
-        this.alumnado = [];
-    }
-    getNombre() {
-        return this.nombre;
-    }
+export class Escuela {
+  constructor(nombre, localidad, director) {
+    this.nombre = nombre
+    this.localidad = localidad
+    this.director = director
+    this.profesorado = []
+  }
+  getNombre() {
+    return this.nombre
+  }
 
-    getLocalidad() {
-        return this.localidad;
-    }
+  getLocalidad() {
+    return this.localidad
+  }
 
-    getResponsable() {
-        return this.responsable;
-    }
+  getResponsable() {
+    return this.director
+  }
 
-    getProfesorado(){
-        return this.profesorado;
-    }
+  getProfesorado() {
+    return this.profesorado
+  }
 
-    getAlumnado(){
-        return this.alumnado;
-    }
+  setNombre(nombre) {
+    this.nombre = nombre
+  }
+  setLocalidad(localidad) {
+    this.localidad = localidad
+  }
+  setResponsable(director) {
+    this.director = director
+  }
 
-    setNombre(nombre) {
-        this.nombre=nombre;
-    }
-    setLocalidad(localidad) {
-        this.localidad=localidad;
-    }
-    setResponsable(responsable) {
-        this.responsable=responsable;
-    }
-
-    setProfesorado(profesorado){
-        this.profesorado = profesorado;
-    }
-
-    setAlumando(alumnado){
-        this.alumnado = alumnado;
-    }
+  addProfesor(profesor) {
+    this.profesorado.push(profesor)
+  }
 }

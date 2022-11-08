@@ -1,31 +1,31 @@
-class Alumno{
-    constructor(nombre, curso, profesor){
-        this.nombre = nombre;
-        this.curso = curso;
-        this.profesor = profesor;
-    }
+export class Alumno {
+  constructor(nombre, curso, profesor) {
+    this.nombre = nombre
+    this.curso = curso
+    this.profesor = profesor
+  }
 
-    getNombre() {
-        return this.nombre;
-    }
+  getNombre() {
+    return this.nombre
+  }
 
-    getCurso() {
-        return this.curso;
-    }
+  getCurso() {
+    return this.curso
+  }
 
-    getProfesor(){
-        return this.profesor;
-    }
+  getProfesor() {
+    return this.profesor
+  }
 
-    setNombre(nombre){
-        this.nombre=nombre;
-    }
+  setNombre(nombre) {
+    this.nombre = nombre
+  }
 
-    setCurso(curso){
-        this.curso=curso;
-    }
+  setCurso(curso) {
+    this.curso = curso
+  }
 
-    setProfesor(profesor){
-        this.profesor=profesor;
-    }
+  setProfesor(profesor) {
+    this.profesor = profesor
+  }
 }

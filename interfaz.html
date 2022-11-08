@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script defer type="module" src="Gestion.js"></script>
+  </head>
+  <body>
+    <div class="addAlumno">
+      <h3>Añadir Alumno</h3>
+      <form action="" method="post">
+        <label for="">Nombre: </label
+        ><input type="text" name="addNombreAlumno" id="addNombreAlumno" />
+        <label for="">Curso: </label
+        ><input type="text" name="addCursoAlumno" id="addCursoAlumno" />
+        <label for="">Responsable: </label
+        ><input
+          type="text"
+          name="addResponsableAlumno"
+          id="addResponsableAlumno"
+        />
+        <br />
+        <button onclick="addAlumno()" type="button">addAlumno</button>
+      </form>
+    </div>
+
+    <div class="addProfesor">
+      <h3>Añadir Profesor</h3>
+      <form action="" method="post">
+        <label for="">Nombre: </label
+        ><input type="text" name="addNombreProfesor" id="addNombreProfesor" />
+        <label for="">Tipo: </label
+        ><input type="text" name="addTipoProfesor" id="addTipoProfesor" />
+        <br />
+        <input type="button" value="addProfesor" />
+      </form>
+    </div>
+
+    <div class="addEscuela">
+      <h3>Añadir Escuela</h3>
+      <form action="" method="post">
+        <label for="">Nombre: </label
+        ><input type="text" name="addNombreEscuela" id="addNombreEscuela" />
+        <label for="">Localidad: </label
+        ><input
+          type="text"
+          name="addLocalidadEscuela"
+          id="addLocalidadEscuela"
+        />
+        <label for="">Director: </label
+        ><input type="text" name="addDirectorEscuela" id="addDirectorEscuela" />
+        <br />
+        <input type="button" value="addEscuela" />
+      </form>
+    </div>
+  </body>
+</html>
