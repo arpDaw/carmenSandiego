@@ -4,6 +4,7 @@ export class Escuela {
     this.localidad = localidad
     this.director = director
     this.profesorado = []
+    this.alumnado = []
   }
   getNombre() {
     return this.nombre
@@ -21,6 +22,10 @@ export class Escuela {
     return this.profesorado
   }
 
+  getAlumnado(){
+    return this.alumnado
+  }
+
   setNombre(nombre) {
     this.nombre = nombre
   }
@@ -33,5 +38,8 @@ export class Escuela {
 
   addProfesor(profesor) {
     this.profesorado.push(profesor)
+  }
+  addAlumno(alumno) {
+    this.alumnado.push(alumno)
   }
 }

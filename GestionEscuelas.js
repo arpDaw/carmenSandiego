@@ -93,7 +93,7 @@ function addEscuela(){ // Añade la escuela
 let bDeleteEscuela = document.getElementById("deleteEscuela")
 
 
-function deleteEscuela(){
+function deleteEscuela(){ // Borra la escuela seleccionada
   let selectorEscuelas = document.getElementById("selectorEscuelas")
   let escuelaQueBorrar = document.forms["elegirEscuelas"].selectorEscuelas
   
@@ -110,7 +110,7 @@ function deleteEscuela(){
 
 bDeleteEscuela.addEventListener("click", deleteEscuela)
 
-function mostrarModificarEscuela() {
+function mostrarModificarEscuela() {//muestra el formulario para modificar la escuela seleccionada
 
   let nombre = ""
   let localidad = ""
@@ -169,7 +169,7 @@ function mostrarModificarEscuela() {
 
   
 
-  function modificarEscuela() {
+  function modificarEscuela() {//modifica la escuela seleccionada
     let nombre = document.getElementById("modificarNombreEscuela").value
     let localidad = document.getElementById("modificarLocalidadEscuela").value
     let director = document.getElementById("modificarDirectorEscuela").value
@@ -196,24 +196,252 @@ function mostrarModificarEscuela() {
 
   }
 
+  function listaProfesores(){
+    let selectorEscuelas = document.getElementById("selectorEscuelas") 
+    let seleccion = document.forms["elegirEscuelas"].selectorEscuelas
 
+    let form = document.createElement("form")
+    form.setAttribute("id", "elegirProfesor")
   
+    let selector = document.createElement("select")
+    selector.setAttribute("name", "selectorProfesor")
+    selector.setAttribute("id", "selectorProfesor")
+
+    for (let i = 0; i < escuelas.length; i++) {
+      if(escuelas[i].getNombre() == seleccion.value){
+        let profesorado = escuelas[i].getProfesorado()
+        for (let x = 0; x < profesorado.length; x++) {
+          let opcion = document.createElement("option")
+          opcion.setAttribute("value", profesorado[x].getNombre())
+          opcion.setAttribute("id", profesorado[x].getNombre())
+          let texto = document.createTextNode(profesorado[x].getNombre())
+          opcion.appendChild(texto)
+          selector.appendChild(opcion)
+          form.appendChild(selector)
+          document.body.appendChild(form)
+          
+        } 
+      } 
+    }
+  }
+
+  window.addEventListener('load', listaProfesores)
+
+  function actualizaListaProfesores(){
+    let selectorEscuelas = document.getElementById("selectorEscuelas") 
+    let seleccionEscuelas = document.forms["elegirEscuelas"].selectorEscuelas
+
+    let selectorProfesor = document.getElementById("selectorProfesor")
+    let seleccionProfesor = document.forms["elegirProfesor"].selectorProfesor
+
+    for (let i = 0; i < escuelas.length; i++) {
+      if(escuelas[i].getNombre() == seleccionEscuelas.value){
+        let profesorado = escuelas[i].getProfesorado()
+        for (let x = 0; x < profesorado.length; x++) {
+          var values = Array.from(document.getElementById("selectorProfesor").options)
+          console.log(profesorado)
+          console.log(values)
+          let opcion = document.createElement("option")
+          opcion.setAttribute("value", profesorado[x].getNombre())
+          opcion.setAttribute("id", profesorado[x].getNombre())
+          let texto = document.createTextNode(profesorado[x].getNombre())
+          opcion.appendChild(texto)
+          selectorProfesor.replaceChild(opcion, selectorProfesor.childNodes[x])
+          
+          // for (let y = 0; y < values.length; y++) {
+          //   let valor = values[y].value
+          //   console.log(valor)
+          //   console.log(profesorado.includes(valor))
+          //   if(!profesorado.includes(valor)){
+          //     let opcionQueBorrar = document.getElementById(valor)
+          //     console.log(opcionQueBorrar)
+          //     selectorProfesor.removeChild(opcionQueBorrar)
+          //   }
+            
+          // }
+
+        } 
+      } 
+    }
+  }
+  let bActu = document.getElementById("actu")
+
+  bActu.addEventListener("click", actualizaListaProfesores)
+
+  function muestraAddProfesor(){
+
+    let form = document.createElement("form")
+    form.setAttribute("id", "addProfesor")
+    
+    let iNombre = document.createElement("input")
+    iNombre.setAttribute("type", "text")
+    iNombre.setAttribute("id", "nombreProfesor")
+    iNombre.setAttribute("placeholder", "Nombre Profesor")
+  
+    form.appendChild(iNombre)
+
+    let iTipo = document.createElement("input")
+    iTipo.setAttribute("type", "text")
+    iTipo.setAttribute("id", "tipoProfesor")
+    iTipo.setAttribute("placeholder", "Tipo Profesor")
+
+    form.appendChild(iTipo)
+
+    let bAddProfesor = document.createElement("input")
+    bAddProfesor.setAttribute("type", "button")
+    bAddProfesor.setAttribute("id", "addProfesor2")
+    bAddProfesor.setAttribute("value", "Añadir")
+
+    form.appendChild(bAddProfesor)
+
+    document.body.appendChild(form)
+
+    let bAddProfesor2 = document.getElementById("addProfesor2")
+    bAddProfesor2.addEventListener("click", addProfesor)
+
+  }
+  let bAddProfesor = document.getElementById("addProfesor")
+  bAddProfesor.addEventListener("click", muestraAddProfesor)
+
+  function addProfesor(){
+    let selectorEscuelas = document.getElementById("selectorEscuelas") 
+    let seleccionEscuelas = document.forms["elegirEscuelas"].selectorEscuelas
+
+    let selectorProfesor = document.getElementById("selectorProfesor")
+    let seleccionProfesor = document.forms["elegirProfesor"].selectorProfesor
+
+    let nombre = document.getElementById("nombreProfesor").value
+    let tipo = document.getElementById("tipoProfesor").value
+    let profesor = new Profesor(nombre, tipo)
+
+    for (let i = 0; i < escuelas.length; i++) {
+      if(escuelas[i].getNombre() == seleccionEscuelas.value){
+        let profesorado = escuelas[i].getProfesorado()
+        profesorado.push(profesor)
+        let opcion = document.createElement("option")
+        opcion.setAttribute("value", nombre)
+        opcion.setAttribute("id", nombre)
+        let texto = document.createTextNode(nombre)
+        opcion.appendChild(texto)
+        selectorProfesor.appendChild(opcion)    
+      } 
+    }
+  }
+
+  let bDeleteprofesor = document.getElementById('deleteProfesor')
+  bDeleteprofesor.addEventListener('click', deleteProfesor)
+
+  function deleteProfesor(){
+    let selectorProfesor = document.getElementById("selectorProfesor")
+    let profesorQueBorrar = document.forms["elegirProfesor"].selectorProfesor
+    let selectorEscuelas = document.getElementById("selectorEscuelas")
+    let escuelaQueBorrar = document.forms["elegirEscuelas"].selectorEscuelas
+    
+    for (let i = 0; i < escuelas.length; i++) {
+      let profesorado = escuelas[i].getProfesorado()
+      if(escuelas[i].getNombre() == escuelaQueBorrar.value){
+        for (let x = 0; x < profesorado.length; x++) {
+          profesorado.splice(x, 1)
+          let opcionQueBorrar = document.getElementById(profesorQueBorrar.value)
+          selectorProfesor.removeChild(opcionQueBorrar)
+          
+        }
+        
+      }
+      
+    }
+  }
+let bMostrarModificarProfesor = document.getElementById('modificarProfesor')
+bMostrarModificarProfesor.addEventListener('click', mostrarModificarProfesor)
+
+function mostrarModificarProfesor(){
+  let form = document.createElement("form")
+    form.setAttribute("id", "modificarProfesor")
+    
+    let iNombre = document.createElement("input")
+    iNombre.setAttribute("type", "text")
+    iNombre.setAttribute("id", "modificarNombreProfesor")
+    iNombre.setAttribute("placeholder", "Modificar Nombre Profesor")
+  
+    form.appendChild(iNombre)
+
+    let iTipo = document.createElement("input")
+    iTipo.setAttribute("type", "text")
+    iTipo.setAttribute("id", "modificarTipoProfesor")
+    iTipo.setAttribute("placeholder", "Modificar Tipo Profesor")
+
+    form.appendChild(iTipo)
+
+    let bModProfesor = document.createElement("input")
+    bModProfesor.setAttribute("type", "button")
+    bModProfesor.setAttribute("id", "modProfesor2")
+    bModProfesor.setAttribute("value", "Modificar")
+
+    form.appendChild(bModProfesor)
+
+    document.body.appendChild(form)
+
+    let bModProfesor2 = document.getElementById("modProfesor2")
+    bModProfesor2.addEventListener("click", modProfesor)
+}
+
+function modProfesor(){
+  let nombre = document.getElementById("modificarNombreProfesor").value
+  let tipo = document.getElementById("modificarTipoProfesor").value
+
+  let selectorEscuelas = document.getElementById("selectorEscuelas")    
+  let seleccion = document.forms["elegirEscuelas"].selectorEscuelas
+  let selectorProfesor = document.getElementById("selectorProfesor")
+  let profesorQueBorrar = document.forms["elegirProfesor"].selectorProfesor
+  
+  for (let i = 0; i < escuelas.length; i++) {
+    if(escuelas[i].getNombre() == seleccion.value){
+      let profesorado = escuelas[i].getProfesorado()
+      for (let x = 0; x < profesorado.length; x++) {
+        profesorado[x].setNombre(nombre)
+        profesorado[x].setTipo(tipo)
+        let opcion = document.createElement("option")
+        opcion.setAttribute("id", nombre)
+        opcion.setAttribute("value", nombre)
+        let texto = document.createTextNode(nombre)
+        opcion.appendChild(texto)
+        selectorProfesor.replaceChild(opcion, selectorProfesor.childNodes[x])
+        break
+      }
+    }
+     
+  }
+
+}
+function listaAlumnos(){
+  let selectorEscuelas = document.getElementById("selectorEscuelas") 
+  let seleccion = document.forms["elegirEscuelas"].selectorEscuelas
+
+  let form = document.createElement("form")
+  form.setAttribute("id", "elegirAlumno")
+
+  let selector = document.createElement("select")
+  selector.setAttribute("name", "selectorAlumno")
+  selector.setAttribute("id", "selectorAlumno")
+
+  for (let i = 0; i < escuelas.length; i++) {
+    if(escuelas[i].getNombre() == seleccion.value){
+      let alumnado = escuelas[i].getAlumnado()
+      for (let x = 0; x < alumnado.length; x++) {
+        let opcion = document.createElement("option")
+        opcion.setAttribute("value", alumnado[x].getNombre())
+        opcion.setAttribute("id", alumnado[x].getNombre())
+        let texto = document.createTextNode(alumnado[x].getNombre())
+        opcion.appendChild(texto)
+        selector.appendChild(opcion)
+        form.appendChild(selector)
+        document.body.appendChild(form)
+        
+      } 
+    } 
+  }
+}
+
+window.addEventListener('load', listaAlumnos)
 
 
-
-
-
-
-// window.addAlumno = addAlumno
-
-// function addAlumno() {
-//   const nombre = document.getElementById('addNombreAlumno').value
-//   const curso = document.getElementById('addCursoAlumno').value
-//   const responsable = document.getElementById('addResponsableAlumno').value
-
-//   const alumno = new Alumno(nombre, curso, responsable)
-
-//   alumnado.push(alumno)
-
-//   alert(alumnado)
-// }
