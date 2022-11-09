@@ -176,23 +176,24 @@ function mostrarModificarEscuela() {
 
     let selectorEscuelas = document.getElementById("selectorEscuelas")    
     let seleccion = document.forms["elegirEscuelas"].selectorEscuelas
-
     
-
     for (let i = 0; i < escuelas.length; i++) {
       if(escuelas[i].getNombre() == seleccion.value){
         escuelas[i].setNombre(nombre)
         escuelas[i].setLocalidad(localidad)
         escuelas[i].setResponsable(director)
 
+        let opcion = document.createElement("option")
+        opcion.setAttribute("id", nombre)
+        opcion.setAttribute("value", nombre)
         let texto = document.createTextNode(nombre)
-        
-       
-
+        opcion.appendChild(texto)
+        selectorEscuelas.replaceChild(opcion, selectorEscuelas.childNodes[i])
+        break
       }
        
     }
-    selectorEscuelas.replaceChild(texto, selectorEscuelas.childNodes[i])
+
   }
 
 
