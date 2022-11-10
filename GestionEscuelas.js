@@ -444,4 +444,149 @@ function listaAlumnos(){
 
 window.addEventListener('load', listaAlumnos)
 
+let bMostrarAddAlumno = document.getElementById("addAlumno")
+bMostrarAddAlumno.addEventListener('click', mostrarAddAlumno)
+
+function mostrarAddAlumno(){
+  let form = document.createElement("form")
+    form.setAttribute("id", "addAlumno")
+    
+    let iNombre = document.createElement("input")
+    iNombre.setAttribute("type", "text")
+    iNombre.setAttribute("id", "nombreAlumno")
+    iNombre.setAttribute("placeholder", "Nombre Alumno")
+  
+    form.appendChild(iNombre)
+
+    let iCurso = document.createElement("input")
+    iCurso.setAttribute("type", "text")
+    iCurso.setAttribute("id", "cursoAlumno")
+    iCurso.setAttribute("placeholder", "Curso Alumno")
+
+    form.appendChild(iCurso)
+
+    let bAddAlumno = document.createElement("input")
+    bAddAlumno.setAttribute("type", "button")
+    bAddAlumno.setAttribute("id", "addAlumno2")
+    bAddAlumno.setAttribute("value", "Añadir")
+
+    form.appendChild(bAddAlumno)
+
+    document.body.appendChild(form)
+
+    let bAddAlumno2 = document.getElementById("addAlumno2")
+    bAddAlumno2.addEventListener("click", addAlumno)
+}
+
+function addAlumno(){
+  let selectorEscuelas = document.getElementById("selectorEscuelas") 
+    let seleccionEscuelas = document.forms["elegirEscuelas"].selectorEscuelas
+
+    let selectorProfesor = document.getElementById("selectorProfesor")
+    let seleccionProfesor = document.forms["elegirProfesor"].selectorProfesor
+
+    let selectorAlumno = document.getElementById("selectorAlumno")
+
+    let nombre = document.getElementById("nombreAlumno").value
+    let curso = document.getElementById("cursoAlumno").value
+    let profesor = seleccionProfesor.value
+    let alumno = new Alumno(nombre, curso, profesor)
+
+    for (let i = 0; i < escuelas.length; i++) {
+      if(escuelas[i].getNombre() == seleccionEscuelas.value){
+        let alumnado = escuelas[i].getAlumnado()
+        alumnado.push(alumno)
+        let opcion = document.createElement("option")
+        opcion.setAttribute("value", nombre)
+        opcion.setAttribute("id", nombre)
+        let texto = document.createTextNode(nombre)
+        opcion.appendChild(texto)
+        selectorAlumno.appendChild(opcion)    
+      } 
+    }
+}
+
+let bDeleteAlumno = document.getElementById('deleteAlumno')
+bDeleteAlumno.addEventListener('click', deleteAlumno)
+
+function deleteAlumno(){
+  let selectorAlumno = document.getElementById("selectorAlumno")
+  let alumnoQueBorrar = document.forms["elegirAlumno"].selectorAlumno
+  let selectorEscuelas = document.getElementById("selectorEscuelas")
+  let escuelaQueBorrar = document.forms["elegirEscuelas"].selectorEscuelas
+  
+  for (let i = 0; i < escuelas.length; i++) {
+    let alumnado = escuelas[i].getAlumnado()
+    if(escuelas[i].getNombre() == escuelaQueBorrar.value){
+      for (let x = 0; x < alumnado.length; x++) {
+        alumnado.splice(x, 1)
+        let opcionQueBorrar = document.getElementById(alumnoQueBorrar.value)
+        selectorAlumno.removeChild(opcionQueBorrar)
+      }
+    }
+  }
+}
+
+let bMostrarModificarAlumno = document.getElementById('modificarAlumno')
+bMostrarModificarAlumno.addEventListener('click', mostrarModificarAlumno)
+
+function mostrarModificarAlumno(){
+  let form = document.createElement("form")
+    form.setAttribute("id", "modificarAlumno")
+    
+    let iNombre = document.createElement("input")
+    iNombre.setAttribute("type", "text")
+    iNombre.setAttribute("id", "modificarNombreAlumno")
+    iNombre.setAttribute("placeholder", "Modificar Nombre Alumno")
+  
+    form.appendChild(iNombre)
+
+    let iCurso = document.createElement("input")
+    iCurso.setAttribute("type", "text")
+    iCurso.setAttribute("id", "modificarCursoAlumno")
+    iCurso.setAttribute("placeholder", "Modificar Tipo Alumno")
+
+    form.appendChild(iCurso)
+
+    let bModAlumno = document.createElement("input")
+    bModAlumno.setAttribute("type", "button")
+    bModAlumno.setAttribute("id", "modAlumno2")
+    bModAlumno.setAttribute("value", "Modificar")
+
+    form.appendChild(bModAlumno)
+
+    document.body.appendChild(form)
+
+    let bModAlumno2 = document.getElementById("modAlumno2")
+    bModAlumno2.addEventListener("click", modAlumno)
+}
+
+function modAlumno(){
+  let nombre = document.getElementById("modificarNombreAlumno").value
+  let curso = document.getElementById("modificarCursoAlumno").value
+
+  let selectorEscuelas = document.getElementById("selectorEscuelas")    
+  let seleccion = document.forms["elegirEscuelas"].selectorEscuelas
+  let selectorAlumno = document.getElementById("selectorAlumno")
+  let profesorQueBorrar = document.forms["elegirProfesor"].selectorProfesor
+  
+  for (let i = 0; i < escuelas.length; i++) {
+    if(escuelas[i].getNombre() == seleccion.value){
+      let alumnado = escuelas[i].getAlumnado()
+      for (let x = 0; x < alumnado.length; x++) {
+        alumnado[x].setNombre(nombre)
+        alumnado[x].setCurso(curso)
+        let opcion = document.createElement("option")
+        opcion.setAttribute("id", nombre)
+        opcion.setAttribute("value", nombre)
+        let texto = document.createTextNode(nombre)
+        opcion.appendChild(texto)
+        selectorAlumno.replaceChild(opcion, selectorAlumno.childNodes[x])
+        console.log(opcion)
+        break
+      }
+    }
+     
+  }
+}
 
